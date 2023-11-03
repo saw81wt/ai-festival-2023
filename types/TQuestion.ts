@@ -1,3 +1,3 @@
-import { initRequestParams } from "@/app/question/page";
+import { initRequestParams } from "@/constants/initRequestParams";
 
 export type TQuestion = typeof initRequestParams;

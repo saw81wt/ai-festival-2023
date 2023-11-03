@@ -4,15 +4,9 @@ import React, { useState } from "react";
 import { Card, CardHeader, CardBody, Divider, Spacer } from "@nextui-org/react";
 import { RadioGroup, Radio } from "@nextui-org/react";
 import { requestQuestion } from "../actions";
+import { initRequestParams } from "@/constants/initRequestParams";
 
-export const initRequestParams = {
-  question1: "",
-  question2: "",
-  question3: "",
-  question4: "",
-  question5: "",
-  question6: "",
-};
+
 
 export default function Index() {
   const [requestState, setRequestState] = useState(initRequestParams);
