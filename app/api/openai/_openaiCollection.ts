@@ -1,42 +1,42 @@
-import OpenAI from "openai"
+import OpenAI from 'openai';
 
 interface CompletionOptions {
-  systemPrompt: string
-  userContent: string
-  model?: string
-  temperature?: number
+  systemPrompt: string;
+  userContent: string;
+  model?: string;
+  temperature?: number;
 }
 
 class OpenAICollection {
-  private openai: OpenAI
+  private openai: OpenAI;
 
   constructor() {
-    this.openai = new OpenAI()
+    this.openai = new OpenAI();
   }
 
   async createCompletion(options: CompletionOptions) {
     const {
       systemPrompt,
       userContent,
-      model = "gpt-4",
+      model = 'gpt-4',
       temperature = 0,
-    } = options
+    } = options;
 
     const completion = await this.openai.chat.completions.create({
       messages: [
         {
-          role: "system",
+          role: 'system',
           content: systemPrompt,
         },
         {
-          role: "user",
+          role: 'user',
           content: userContent,
         },
       ],
       model: model,
       temperature: temperature,
-    })
+    });
 
-    return completion.choices[0]
+    return completion.choices[0];
   }
 }

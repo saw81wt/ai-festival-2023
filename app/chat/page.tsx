@@ -1,34 +1,34 @@
-"use client"
-import { useState } from "react"
-import { Avatar } from "@nextui-org/react"
-import { Button } from "@nextui-org/react"
-import {Input} from "@nextui-org/react";
+'use client';
+import { useState } from 'react';
+import { Avatar } from '@nextui-org/react';
+import { Button } from '@nextui-org/react';
+import { Input } from '@nextui-org/react';
 
 interface Message {
-  id: number
-  text: string
-  sender: "user" | "bot"
+  id: number;
+  text: string;
+  sender: 'user' | 'bot';
 }
 
 export default function ChatClientComponent() {
-  const [messages, setMessages] = useState<Message[]>([])
-  const [inputText, setInputText] = useState("")
+  const [messages, setMessages] = useState<Message[]>([]);
+  const [inputText, setInputText] = useState('');
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    if (inputText.trim() === "") return
+    e.preventDefault();
+    if (inputText.trim() === '') return;
 
     if (messages.length > 0) {
       setMessages((pre) => [
         ...pre,
-        { id: pre.length, text: inputText, sender: "user" },
-      ])
+        { id: pre.length, text: inputText, sender: 'user' },
+      ]);
     } else {
-      setMessages((pre) => [{ id: 1, text: inputText, sender: "user" }])
+      setMessages((pre) => [{ id: 1, text: inputText, sender: 'user' }]);
     }
 
-    setInputText("")
-  }
+    setInputText('');
+  };
 
   return (
     //
@@ -36,15 +36,16 @@ export default function ChatClientComponent() {
       <div className="flex flex-col h-screen w-[480px]">
         <div className="overflow-auto flex-1 chat-box">
           {messages?.map((msg) => {
-            const order =  msg.sender === "user" ? "flex-row" : "flex-row-reverse"
+            const order =
+              msg.sender === 'user' ? 'flex-row' : 'flex-row-reverse';
             return (
-              <div className={`flex items-center mb-2 ${order}`}>
+              <div key={msg.id} className={`flex items-center mb-2 ${order}`}>
                 <Avatar name="Junior" className="m-2" />
-                <div key={msg.id} className={`message ${msg.sender} max-w-[320px]`}>
+                <div className={`message ${msg.sender} max-w-[320px]`}>
                   {msg.text}
                 </div>
               </div>
-            )
+            );
           })}
         </div>
         <div className="input-box">
@@ -61,5 +62,5 @@ export default function ChatClientComponent() {
         </div>
       </div>
     </div>
-  )
+  );
 }

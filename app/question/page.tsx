@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import React from "react";
-import { Card, CardHeader, CardBody, Divider, Spacer } from "@nextui-org/react";
-import { RadioGroup, Radio } from "@nextui-org/react";
+import React from 'react';
+import { Card, CardHeader, CardBody, Divider, Spacer } from '@nextui-org/react';
+import { RadioGroup, Radio } from '@nextui-org/react';
 
 export default function Index() {
   return (
