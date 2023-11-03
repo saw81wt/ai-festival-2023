@@ -37,7 +37,7 @@ export default function Index() {
         <div className="flex justify-center">
           <Card className="w-[400px]">
             <CardHeader className="flex gap-3">
-              Q1：最近感じる心理的な不調（複数選択可）
+              Q1：最近感じる心理的な不調
             </CardHeader>
             <Divider />
             <CardBody>
@@ -230,7 +230,7 @@ export default function Index() {
       
           <Button type="submit">
             {isSubmitting ? (
-            <Spinner size="lg" color="primary" />
+            <Spinner />
           ) : ("送信")}</Button>
           
         </div>
