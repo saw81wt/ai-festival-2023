@@ -70,7 +70,7 @@ export default function ChatClientComponent() {
         text: inputText,
         sender: 'user',
         counselingApproach: userType ?? '',
-        counselingEndFlag: messages.length == 2,
+        counselingEndFlag: finished,
       },
     ],
   };
