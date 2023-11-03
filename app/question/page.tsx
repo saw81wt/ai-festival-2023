@@ -1,23 +1,28 @@
-"use client";
+'use client';
 
-import React, { useState } from "react";
-import { Card, CardHeader, CardBody, Divider, Spacer } from "@nextui-org/react";
-import { RadioGroup, Radio } from "@nextui-org/react";
-import { initRequestParams } from "@/constants/initRequestParams";
-import { useRouter } from "next/navigation";
+import React, { useState } from 'react';
+import { Card, CardHeader, CardBody, Divider, Spacer } from '@nextui-org/react';
+import { RadioGroup, Radio } from '@nextui-org/react';
+import { initRequestParams } from '@/constants/initRequestParams';
+import { useRouter } from 'next/navigation';
 
 export default function Index() {
-  const router = useRouter()
+  const router = useRouter();
   const [requestState, setRequestState] = useState(initRequestParams);
-  const handleRequest = async() => {
-    const res = await fetch('/api/openai', { method: "POST",body : JSON.stringify(requestState),  headers: {
-      "Content-Type": "application/json",
-    },
-    }).then((response) => response.json()).then((data) => {
-      const jsonRes = JSON.parse(data)
-      router.push(`/chat?user_type=${jsonRes.counselling_type}`)
+  const handleRequest = async () => {
+    const res = await fetch('/api/openai/initial', {
+      method: 'POST',
+      body: JSON.stringify(requestState),
+      headers: {
+        'Content-Type': 'application/json',
+      },
     })
-  }
+      .then((response) => response.json())
+      .then((data) => {
+        const jsonRes = JSON.parse(data);
+        router.push(`/chat?user_type=${jsonRes.counselling_type}`);
+      });
+  };
   return (
     <>
       <form action={async () => await handleRequest()}>
@@ -204,7 +209,9 @@ export default function Index() {
                 <Radio value="創造性：アート作品を作る、書くなど">
                   創造性：アート作品を作る、書くなど
                 </Radio>
-                <Radio value="社交：友人や家族と集まる">社交：友人や家族と集まる</Radio>
+                <Radio value="社交：友人や家族と集まる">
+                  社交：友人や家族と集まる
+                </Radio>
               </RadioGroup>
             </CardBody>
             <Divider />

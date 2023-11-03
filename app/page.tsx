@@ -60,7 +60,7 @@ export default function Home() {
         </div>
       </div>
       <div className="w-full mt-md text-center">
-        <Link href="/chat">
+        <Link href="/question">
           <button
             className="w-60 h-12 text-center text-white text-xl rounded-4xl shadow-base tracking-[1rem] indent-[1rem] disabled:opacity-50 disabled:cursor-not-allowed"
             onClick={onClickNext}
