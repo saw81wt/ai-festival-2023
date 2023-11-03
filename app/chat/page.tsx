@@ -70,7 +70,11 @@ export default function ChatClientComponent() {
         text: inputText,
         sender: 'user',
         counselingApproach: userType ?? '',
-        counselingEndFlag: finished,
+        counselingEndFlag:
+          messages.filter((x) => {
+            return x.sender === 'user';
+          }).length >=
+          max_chat_length - 1,
       },
     ],
   };
@@ -114,7 +118,7 @@ export default function ChatClientComponent() {
           ]);
           setMessages((pre) => [
             ...pre,
-            { id: pre.length, text: perseRes.answer, sender: 'bot' },
+            { id: pre.length + 1, text: perseRes.answer, sender: 'bot' },
           ]);
         }
       });
