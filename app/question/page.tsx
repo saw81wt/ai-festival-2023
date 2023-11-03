@@ -6,8 +6,6 @@ import { RadioGroup, Radio } from "@nextui-org/react";
 import { requestQuestion } from "../actions";
 import { initRequestParams } from "@/constants/initRequestParams";
 
-
-
 export default function Index() {
   const [requestState, setRequestState] = useState(initRequestParams);
   return (
