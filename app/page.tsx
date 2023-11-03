@@ -45,7 +45,7 @@ export default function Home() {
         <div className="w-fit mr-auto mt-xl font-bold text-lg">
           アイコン選択
         </div>
-        <div className="grid grid-cols-5 gap-4 place-items-center mt-sm">
+        <div className="grid grid-cols-5 gap-4 mt-sm">
           {imagePaths.map((icon) => (
             <Avatar
               key={icon}
