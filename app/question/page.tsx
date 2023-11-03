@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Card, CardHeader, CardBody, Divider, Spacer } from '@nextui-org/react';
+import { Card, CardHeader, CardBody, Divider, Spacer, Button } from '@nextui-org/react';
 import { RadioGroup, Radio, Spinner } from '@nextui-org/react';
 import { initRequestParams } from '@/constants/initRequestParams';
 import { useRouter } from 'next/navigation';
@@ -10,10 +10,12 @@ export default function Index() {
   const router = useRouter();
   const [requestState, setRequestState] = useState(initRequestParams);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const handleRequest = async () => {
+  const handleRequest = async (e: React.FormEvent) => {
+        e.preventDefault();
+
     if (isSubmitting) return;
     setIsSubmitting(true);
-    const res = await fetch('/api/openai/initial', {
+     await fetch('/api/openai/initial', {
       method: 'POST',
       body: JSON.stringify(requestState),
       headers: {
@@ -30,10 +32,10 @@ export default function Index() {
       });
   };
   return (
-    <>
-      <form action={async () => await handleRequest()}>
+    <div className='py-5'>
+      <form onSubmit={ handleRequest}>
         <div className="flex justify-center">
-          <Card className="max-w-[400px]">
+          <Card className="w-[400px]">
             <CardHeader className="flex gap-3">
               Q1：最近感じる心理的な不調（複数選択可）
             </CardHeader>
@@ -63,7 +65,7 @@ export default function Index() {
         <Spacer y={2} />
 
         <div className="flex justify-center">
-          <Card className="max-w-[400px]">
+          <Card className="min-w-[400px]">
             <CardHeader className="flex gap-3">
               Q2：現在のストレスレベル
             </CardHeader>
@@ -91,7 +93,7 @@ export default function Index() {
         <Spacer y={2} />
 
         <div className="flex justify-center">
-          <Card className="max-w-[400px]">
+          <Card className="w-[400px]">
             <CardHeader className="flex gap-3">
               Q3：最後に友人と楽しいと感じた体験は何でしたか？
             </CardHeader>
@@ -124,7 +126,7 @@ export default function Index() {
 
         <div className="flex justify-center">
           <Spacer y={2} />
-          <Card className="max-w-[400px]">
+          <Card className="w-[400px]">
             <CardHeader className="flex gap-3">
               Q4：悩みやストレスがある時にどのような活動に励みますか？
             </CardHeader>
@@ -156,7 +158,7 @@ export default function Index() {
 
         <div className="flex justify-center">
           <Spacer y={2} />
-          <Card className="max-w-[400px]">
+          <Card className="w-[400px]">
             <CardHeader className="flex gap-3">
               Q5：新しい状況に対しては、どう対応することが多いですか？
             </CardHeader>
@@ -192,7 +194,7 @@ export default function Index() {
 
         <div className="flex justify-center">
           <Spacer y={2} />
-          <Card className="max-w-[400px]">
+          <Card className="w-[400px]">
             <CardHeader className="flex gap-3">
               Q6：休日をどのように過ごすのが理想的ですか？
             </CardHeader>
@@ -224,14 +226,15 @@ export default function Index() {
           </Card>
         </div>
 
-        <div className="flex justify-center">
-          {isSubmitting ? (
+        <div className="flex justify-center py-3">
+      
+          <Button type="submit">
+            {isSubmitting ? (
             <Spinner size="lg" color="primary" />
-          ) : (
-            <input type="submit" />
-          )}
+          ) : ("送信")}</Button>
+          
         </div>
       </form>
-    </>
+    </div>
   );
 }
