@@ -4,7 +4,7 @@ import {
   INITIAL_SYSTEM_PROMPT,
   userInitialPrompt,
   MedicalQuestionnaire,
-} from "./prompt"
+} from "./_prompt"
 
 export async function handler(request: MedicalQuestionnaire) {
   const openai = new OpenAI()
