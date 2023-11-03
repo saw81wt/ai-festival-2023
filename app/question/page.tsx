@@ -2,14 +2,17 @@
 
 import React, { useState } from 'react';
 import { Card, CardHeader, CardBody, Divider, Spacer } from '@nextui-org/react';
-import { RadioGroup, Radio } from '@nextui-org/react';
+import { RadioGroup, Radio, Spinner } from '@nextui-org/react';
 import { initRequestParams } from '@/constants/initRequestParams';
 import { useRouter } from 'next/navigation';
 
 export default function Index() {
   const router = useRouter();
   const [requestState, setRequestState] = useState(initRequestParams);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const handleRequest = async () => {
+    if (isSubmitting) return;
+    setIsSubmitting(true);
     const res = await fetch('/api/openai/initial', {
       method: 'POST',
       body: JSON.stringify(requestState),
@@ -21,6 +24,9 @@ export default function Index() {
       .then((data) => {
         const jsonRes = JSON.parse(data);
         router.push(`/chat?user_type=${jsonRes.counselling_type}`);
+      })
+      .finally(() => {
+        setIsSubmitting(false);
       });
   };
   return (
@@ -219,7 +225,11 @@ export default function Index() {
         </div>
 
         <div className="flex justify-center">
-          <input type="submit" />
+          {isSubmitting ? (
+            <Spinner size="lg" color="primary" />
+          ) : (
+            <input type="submit" />
+          )}
         </div>
       </form>
     </>

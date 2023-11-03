@@ -8,16 +8,16 @@ import { Image } from '@nextui-org/react';
 export default function Home() {
   const [userIcon, setUserIcon] = useState('');
   const imagePaths = [
-    '/avatar.png',
-    '/avatar.png',
-    '/avatar.png',
-    '/avatar.png',
-    '/avatar.png',
-    '/cool-man.png',
-    '/cool-man.png',
-    '/cool-man.png',
-    '/cool-man.png',
-    '/cool-man.png',
+    '/icons/avatar1.png',
+    '/icons/avatar2.png',
+    '/icons/avatar3.png',
+    '/icons/avatar4.png',
+    '/icons/avatar5.png',
+    '/icons/avatar6.png',
+    '/icons/avatar7.png',
+    '/icons/avatar8.png',
+    '/icons/avatar9.png',
+    '/icons/avatar10.png',
   ];
 
   const onClickNext = () => {
@@ -38,7 +38,7 @@ export default function Home() {
   return (
     <main className="h-screen w-[390px] mx-auto px-xs py-sm flex space-y-8 flex-col items-center justify-center">
       <div className="flex w-full items-center">
-        <Image width={56} src="logo.png" />
+        <Image alt="logo" width={56} src="logo.png" />
         <p className="font-bold text-3xl ml-4">KIRAKU</p>
       </div>
       <div className="w-full">

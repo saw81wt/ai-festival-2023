@@ -4,8 +4,7 @@ import { useState, useRef, useEffect, useMemo } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { useRouter } from 'next/navigation';
 import { Avatar } from '@nextui-org/react';
-import { Button } from '@nextui-org/react';
-import { Input } from '@nextui-org/react';
+import { Button, Input, Spinner } from '@nextui-org/react';
 import { TChat } from '@/types/TChat';
 import { UMessage } from '@/types/TMessage';
 import { type } from 'os';
@@ -30,6 +29,7 @@ export default function ChatClientComponent() {
   const endOfMessagesRef = useRef<HTMLDivElement>(null);
   const [finished, setFinished] = useState(false);
   const [userIcon, setUserIcon] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const router = useRouter();
   const params = useSearchParams();
   const userType = params.get('user_type');
@@ -121,13 +121,22 @@ export default function ChatClientComponent() {
   };
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (inputText.trim() === '') {
+    if (inputText.trim() === '' || isSubmitting) {
       return;
-    } else {
-      await handleRequest();
     }
 
-    if (messages.length >= max_chat_length) {
+    setIsSubmitting(true);
+    try {
+      await handleRequest();
+    } finally {
+      setIsSubmitting(false);
+    }
+
+    if (
+      messages.filter((x) => {
+        return x.sender === 'user';
+      }).length >= max_chat_length
+    ) {
       setFinished(true);
     }
 
@@ -171,7 +180,7 @@ export default function ChatClientComponent() {
                 onChange={(e) => setInputText(e.target.value)}
                 placeholder="メッセージを入力"
               />
-              <Button type="submit">送信</Button>
+              {isSubmitting ? <Spinner /> : <Button type="submit">送信</Button>}
             </form>
           </div>
         )}
