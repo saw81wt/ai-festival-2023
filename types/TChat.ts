@@ -1,3 +1,6 @@
-import { chatRequestParam } from "@/constants/chatRequestPram";
-
-export type TChat = typeof chatRequestParam;
+export type TChat = {
+  clientIssue: string;
+  counselingApproach: string;
+  clientInput?: string;
+  counselingEndFlag: boolean;
+};
