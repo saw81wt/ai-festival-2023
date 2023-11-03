@@ -3,7 +3,6 @@
 import { useState, useRef, useEffect, useMemo } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { useRouter } from 'next/navigation';
-import { Avatar } from '@nextui-org/react';
 import { Button, Input, Spinner } from '@nextui-org/react';
 import { TChat } from '@/types/TChat';
 import { UMessage } from '@/types/TMessage';
@@ -94,6 +93,16 @@ export default function ChatClientComponent() {
   };
 
   const handleRequest = async () => {
+    setMessages((pre) => [
+      ...pre,
+      {
+        id: pre.length,
+        text: inputText,
+        sender: 'user',
+        counselingApproach: userType ?? '',
+        counselingEndFlag: false,
+      },
+    ]);
     await fetch('/api/openai/chat', {
       method: 'POST',
       body: JSON.stringify(request),
@@ -104,37 +113,10 @@ export default function ChatClientComponent() {
       .then((response) => response.json())
       .then((data) => {
         const perseRes = JSON.parse(data);
-
-        if (messages.length > 0) {
-          setMessages((pre) => [
-            ...pre,
-            {
-              id: pre.length,
-              text: inputText,
-              sender: 'user',
-              counselingApproach: userType ?? '',
-              counselingEndFlag: false,
-            },
-          ]);
-          setMessages((pre) => [
-            ...pre,
-            { id: pre.length, text: perseRes.answer, sender: 'bot' },
-          ]);
-        } else {
-          setMessages((pre) => [
-            {
-              id: 1,
-              text: inputText,
-              sender: 'user',
-              counselingApproach: userType ?? '',
-              counselingEndFlag: false,
-            },
-          ]);
-          setMessages((pre) => [
-            ...pre,
-            { id: pre.length + 1, text: perseRes.answer, sender: 'bot' },
-          ]);
-        }
+        setMessages((pre) => [
+          ...pre,
+          { id: pre.length, text: perseRes.answer, sender: 'bot' },
+        ]);
       });
   };
   const handleSubmit = async (e: React.FormEvent) => {
@@ -190,7 +172,7 @@ export default function ChatClientComponent() {
                 onChange={(e) => setInputText(e.target.value)}
                 placeholder="メッセージを入力"
               />
-              {isSubmitting ? <Spinner /> : <Button type="submit" variant='light'>送信</Button>}
+              {isSubmitting ? <Spinner className='h-12'/> : <Button type="submit" variant='light'>送信</Button>}
             </form>
           </div>
         )}
