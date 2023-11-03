@@ -1,8 +1,14 @@
+import { UMessage } from '@/types/TMessage';
 import OpenAI from 'openai';
 
 interface CompletionOptions {
   userContent: string;
   systemPrompt?: string;
+}
+
+export interface OpenAIMessage {
+  role: 'system' | 'user' | 'assistant' | 'function';
+  content: string;
 }
 
 interface IOpenAICollectionParams {
@@ -22,6 +28,16 @@ export class OpenAICollection {
       this.temperature = param.temperature;
     }
     this.openai = new OpenAI();
+  }
+
+  async chatPromptContent(messages: OpenAIMessage[]) {
+    const completion = await this.openai.chat.completions.create({
+      messages: messages,
+      model: this.model,
+      temperature: this.temperature,
+    });
+
+    return completion.choices[0];
   }
 
   async createCompletion(options: CompletionOptions) {
@@ -45,6 +61,16 @@ export class OpenAICollection {
               content: userContent,
             },
           ],
+      model: this.model,
+      temperature: this.temperature,
+    });
+
+    return completion.choices[0];
+  }
+
+  async createChatCompletion(messages: OpenAIMessage[]) {
+    const completion = await this.openai.chat.completions.create({
+      messages: messages,
       model: this.model,
       temperature: this.temperature,
     });
