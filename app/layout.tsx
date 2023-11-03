@@ -10,8 +10,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="dark">
-      <body>
+    <html lang="en">
+      <body className='bg-emerald-200'>
         <Providers>{children}</Providers>
       </body>
     </html>

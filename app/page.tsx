@@ -38,7 +38,7 @@ export default function Home() {
   return (
     <main className="h-screen w-[390px] mx-auto px-xs py-sm flex space-y-8 flex-col items-center justify-center">
       <div className="flex w-full items-center">
-        <Image width={56} src="logo.png" />
+        <Image alt="logo" width={56} src="logo.png" />
         <p className="font-bold text-3xl ml-4">KIRAKU</p>
       </div>
       <div className="w-full">
