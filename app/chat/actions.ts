@@ -1,5 +1,9 @@
 'use server'
 
-export async function myAction() {
-  return "こんにちは，池永の池ちゃんだよ"
+interface SendChatResponse {
+    answer: string
+}
+
+export async function sendChat(): Promise<SendChatResponse> {
+  return { answer: "こんにちは，池永の池ちゃんだよ" }
 }

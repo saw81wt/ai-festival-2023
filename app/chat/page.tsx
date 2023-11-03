@@ -5,7 +5,7 @@ import { Avatar } from "@nextui-org/react"
 import { Button } from "@nextui-org/react"
 import {Input} from "@nextui-org/react";
 
-import { myAction } from "./actions";
+import { sendChat } from "./actions";
 
 interface Message {
   id: number;
@@ -27,15 +27,15 @@ export default function ChatClientComponent() {
         ...pre,
         { id: pre.length, text: inputText, sender: "user" },
       ])
-      const botMessage = await myAction()
+      const { answer } = await sendChat()
       setMessages((pre) => [
         ...pre,
-        { id: pre.length, text: botMessage, sender: "bot" },
+        { id: pre.length, text: answer, sender: "bot" },
       ])
     } else {
       setMessages((pre) => [{ id: 1, text: inputText, sender: "user" }])
-      const botMessage = await myAction()
-      setMessages((pre) => [{ id: 1, text: botMessage, sender: "bot" }])
+      const { answer } = await sendChat()
+      setMessages((pre) => [{ id: 1, text: answer , sender: "bot" }])
     }
 
     setInputText('');
