@@ -1,6 +1,7 @@
 "use client"
 
-import { useState, useRef, useEffect } from "react"
+import { useState, useRef, useEffect, useMemo } from "react"
+import { useSearchParams } from 'next/navigation'
 import { useRouter } from 'next/navigation'
 import { Avatar } from "@nextui-org/react"
 import { Button } from "@nextui-org/react"
@@ -20,8 +21,19 @@ export default function ChatClientComponent() {
   const endOfMessagesRef = useRef<HTMLDivElement>(null);
   const [finished, setFinished] = useState(false);
   const [userIcon, setUserIcon] = useState("");
+
   const router = useRouter()
-  const bot_image_path = "/cool-man.png"
+  const params = useSearchParams()
+  const userType = params.get('user_type')
+
+  // UserTypeによってアイコンを変える
+  const coolBotIcons = ["/cool-man.png", "/cool-woman.png"]
+  const tenderBotIcons = ["/tender-man.png", "/tender-woman.png"]
+
+  const botIcon = useMemo(() => {
+    const random = Math.floor(Math.random() * 2)
+    return userType == "発散系" ? tenderBotIcons[random] : coolBotIcons[random]
+  }, [userType])
   const max_chat_length = 2
 
   useEffect(() => {
@@ -69,7 +81,7 @@ export default function ChatClientComponent() {
         <div className="overflow-auto flex-1 chat-box">
           {messages?.map((msg) => {
             const order =  msg.sender === "bot" ? "flex-row" : "flex-row-reverse"
-            const image_path = msg.sender === "bot" ? bot_image_path : userIcon
+            const image_path = msg.sender === "bot" ? botIcon : userIcon
             return (
               <div key={msg.id} className={`flex items-center mb-2 ${order}`}>
                 <Avatar src={image_path} className="m-2" />
