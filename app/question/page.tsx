@@ -13,18 +13,11 @@ export default function Index() {
   const handleRequest = async() => {
     const res = await fetch('/api/openai', { method: "POST",body : JSON.stringify(requestState),  headers: {
       "Content-Type": "application/json",
-      // 'Content-Type': 'application/x-www-form-urlencoded',
     },
     }).then((response) => response.json()).then((data) => {
-      const jsonRes = JSON.parse(data) as unknown as {counselling_type : string}
+      const jsonRes = JSON.parse(data)
       router.push(`/chat?user_type=${jsonRes.counselling_type}`)
     })
-    // console.log(res.json())
-    // console.log(JSON.stringify(res.body))
-    // // const resJson = await res.json()
-    // console.log(resJson)
-    // console.log(resJson)
-    // console.log(res)
   }
   return (
     <>
