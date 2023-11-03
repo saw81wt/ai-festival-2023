@@ -6,7 +6,6 @@ import { OpenAIMessage } from '@/constants/openaiCollection';
 
 export async function POST(request: Request) {
   const jsonRequest = await request.json();
-  // console.log(jsonRequest);
   const openai = new OpenAICollection();
   const chatPromptContents = createChatPromptContents(jsonRequest.messages);
   console.log(chatPromptContents);
