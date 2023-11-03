@@ -30,7 +30,7 @@ export default function ChatBubble({ message, position, icon }: Props) {
   return (
     <div className={positionClass}>
       <Avatar src={icon} />
-      <div className='break-words relative m-2 py-2 px-4 bg-white w-2/5 rounded-2xl'>
+      <div className='break-words relative m-2 py-2 px-4 bg-white w-3/5 rounded-2xl'>
         {message}
         {tail}
       </div>
