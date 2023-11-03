@@ -36,7 +36,10 @@ export default function ChatClientComponent() {
     } else {
       setMessages((pre) => [{ id: 1, text: inputText, sender: "user" }])
       const { answer } = await sendChat()
-      setMessages((pre) => [{ id: 2, text: answer , sender: "bot" }])
+      setMessages((pre) => [
+        ...pre,
+        { id: pre.length, text: answer, sender: "bot" },
+      ])
     }
 
     setInputText('');
