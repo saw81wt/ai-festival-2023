@@ -1,9 +1,10 @@
 "use client"
 
 import { useState, useRef, useEffect } from "react"
+import { useRouter } from 'next/navigation'
 import { Avatar } from "@nextui-org/react"
 import { Button } from "@nextui-org/react"
-import {Input} from "@nextui-org/react";
+import { Input } from "@nextui-org/react";
 
 import { sendChat } from "./actions";
 
@@ -17,8 +18,11 @@ export default function ChatClientComponent() {
   const [messages, setMessages] = useState<Message[]>([])
   const [inputText, setInputText] = useState("")
   const endOfMessagesRef = useRef<HTMLDivElement>(null);
+  const [finished, setFinished] = useState(false);
+  const router = useRouter()
   const bot_image_path = "/cool-man.png"
   const user_image_path = "/avatar.png"
+  const max_chat_length = 2
 
   useEffect(() => {
     endOfMessagesRef?.current?.scrollIntoView({ behavior: 'smooth' });
@@ -46,6 +50,9 @@ export default function ChatClientComponent() {
         { id: pre.length, text: answer, sender: "bot" },
       ])
     }
+    if (messages.length >= max_chat_length) {
+      setFinished(true)
+    }
 
     setInputText('');
   };
@@ -69,18 +76,21 @@ export default function ChatClientComponent() {
           })}
           <div ref={endOfMessagesRef} />
         </div>
-        <div className="input-box">
-          <form className="flex w-full" onSubmit={handleSubmit}>
-            <Input
-              type="text"
-              className=""
-              value={inputText}
-              onChange={(e) => setInputText(e.target.value)}
-              placeholder="メッセージを入力"
-            />
-            <Button type="submit">送信</Button>
-          </form>
-        </div>
+        { finished ?
+          <Button type="button" onClick={() => router.push('/')}>TOPに戻る</Button> :
+          <div className="input-box">
+            <form className="flex w-full" onSubmit={handleSubmit}>
+              <Input
+                type="text"
+                className=""
+                value={inputText}
+                onChange={(e) => setInputText(e.target.value)}
+                placeholder="メッセージを入力"
+              />
+              <Button type="submit">送信</Button>
+            </form>
+          </div>
+        }
       </div>
     </div>
   );
