@@ -26,14 +26,14 @@ export default function Index() {
                   }))
                 }
               >
-                <Radio value="Anxiety">不安</Radio>
-                <Radio value="Depression">落ち込み</Radio>
-                <Radio value="Irritability">イライラ</Radio>
-                <Radio value="Fatigue">疲労感</Radio>
-                <Radio value="Lack of motivation">無気力</Radio>
-                <Radio value="Insomnia">寝つきが悪い</Radio>
-                <Radio value="Difficulty concentrating">集中困難</Radio>
-                <Radio value="Other">その他</Radio>
+                <Radio value="不安">不安</Radio>
+                <Radio value="落ち込み">落ち込み</Radio>
+                <Radio value="イライラ">イライラ</Radio>
+                <Radio value="疲労感">疲労感</Radio>
+                <Radio value="無気力">無気力</Radio>
+                <Radio value="寝つきが悪い">寝つきが悪い</Radio>
+                <Radio value="集中困難">集中困難</Radio>
+                <Radio value="その他">その他</Radio>
               </RadioGroup>
             </CardBody>
             <Divider />
@@ -56,11 +56,11 @@ export default function Index() {
                   }))
                 }
               >
-                <Radio value="Low">低い</Radio>
-                <Radio value="Slightly Low">やや低い</Radio>
-                <Radio value="Moderate">中程度</Radio>
-                <Radio value="Slightly High">やや高い</Radio>
-                <Radio value="High">高い</Radio>
+                <Radio value="低い">低い</Radio>
+                <Radio value="やや低い">やや低い</Radio>
+                <Radio value="中程度">中程度</Radio>
+                <Radio value="やや高い">やや高い</Radio>
+                <Radio value="高い">高い</Radio>
               </RadioGroup>
             </CardBody>
             <Divider />
@@ -84,14 +84,14 @@ export default function Index() {
                   }))
                 }
               >
-                <Radio value="Social Gathering">
+                <Radio value="大勢でワイワイとパーティーをした">
                   大勢でワイワイとパーティーをした
                 </Radio>
-                <Radio value="Deep Conversation">一対一で深い話をした</Radio>
-                <Radio value="Balancing Alone Time and Socializing">
+                <Radio value="一対一で深い話をした">一対一で深い話をした</Radio>
+                <Radio value="自分の時間を大切にしながら、たまに友達と遊んだ">
                   自分の時間を大切にしながら、たまに友達と遊んだ
                 </Radio>
-                <Radio value="Engaging in Hobbies with Friends">
+                <Radio value="友人と趣味の活動を共にした">
                   友人と趣味の活動を共にした
                 </Radio>
               </RadioGroup>
@@ -117,12 +117,12 @@ export default function Index() {
                   }))
                 }
               >
-                <Radio value="Exercise">スポーツや運動をする</Radio>
-                <Radio value="Music Listening or Playing">
+                <Radio value="スポーツや運動をする">スポーツや運動をする</Radio>
+                <Radio value="音楽を聴く、または演奏する">
                   音楽を聴く、または演奏する
                 </Radio>
-                <Radio value="Reading or Meditation">読書や瞑想</Radio>
-                <Radio value="Socializing with Friends">
+                <Radio value="読書や瞑想">読書や瞑想</Radio>
+                <Radio value="友達と話して気晴らしする">
                   友達と話して気晴らしする
                 </Radio>
               </RadioGroup>
@@ -149,16 +149,16 @@ export default function Index() {
                   }))
                 }
               >
-                <Radio value="Gather All Information Before Taking Action">
+                <Radio value="必要な情報をすべて集めてから対処する">
                   必要な情報をすべて集めてから対処する
                 </Radio>
-                <Radio value="Act Based on Intuition and Experience">
+                <Radio value="直感と経験に基づいて即座に行動する">
                   直感と経験に基づいて即座に行動する
                 </Radio>
-                <Radio value="Seek Advice from Others">
+                <Radio value="誰かにアドバイスを求める">
                   誰かにアドバイスを求める
                 </Radio>
-                <Radio value="Observe the Situation and Wait for a While">
+                <Radio value="状況を観察し、しばらく様子を見る">
                   状況を観察し、しばらく様子を見る
                 </Radio>
               </RadioGroup>
@@ -185,16 +185,16 @@ export default function Index() {
                   }))
                 }
               >
-                <Radio value="Adventure and Exploration">
+                <Radio value="アドベンチャーと探索：新しい場所への旅行やアクティビティ">
                   アドベンチャーと探索：新しい場所への旅行やアクティビティ
                 </Radio>
-                <Radio value="Relaxation">
+                <Radio value="リラクゼーション：家でゆっくりと過ごす">
                   リラクゼーション：家でゆっくりと過ごす
                 </Radio>
-                <Radio value="Creativity">
+                <Radio value="創造性：アート作品を作る、書くなど">
                   創造性：アート作品を作る、書くなど
                 </Radio>
-                <Radio value="Socializing">社交：友人や家族と集まる</Radio>
+                <Radio value="社交：友人や家族と集まる">社交：友人や家族と集まる</Radio>
               </RadioGroup>
             </CardBody>
             <Divider />
