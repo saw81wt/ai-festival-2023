@@ -3,7 +3,6 @@
 import React, { useState } from "react";
 import { Card, CardHeader, CardBody, Divider, Spacer } from "@nextui-org/react";
 import { RadioGroup, Radio } from "@nextui-org/react";
-import { requestQuestion } from "../actions";
 import { initRequestParams } from "@/constants/initRequestParams";
 import { useRouter } from "next/navigation";
 
