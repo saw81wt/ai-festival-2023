@@ -6,7 +6,7 @@ import {
   MedicalQuestionnaire,
 } from "./_prompt"
 
-export async function handler(request: MedicalQuestionnaire) {
+export async function GET(request: Request) {
   const openai = new OpenAI()
 
   const completion = await openai.chat.completions.create({
@@ -17,7 +17,7 @@ export async function handler(request: MedicalQuestionnaire) {
       },
       {
         role: "user",
-        content: userInitialPrompt(request),
+        content: "",
       },
     ],
     model: "gpt-4",
