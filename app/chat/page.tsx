@@ -6,15 +6,25 @@ import { useRouter } from 'next/navigation';
 import { Avatar } from '@nextui-org/react';
 import { Button, Input, Spinner } from '@nextui-org/react';
 import { TChat } from '@/types/TChat';
+import { UMessage } from '@/types/TMessage';
+import { type } from 'os';
 
-interface Message {
-  id: number;
-  text: string;
-  sender: 'user' | 'bot';
-}
+// type Message = {
+//   id: number;
+//   text: string;
+//   sender: 'user' | 'bot';
+// };
+
+// type TUserMessage = Message & Omit<TChat, 'clientInput'>;
+
+// type TBotMessage = Message;
+
+// type TMessage<T> = T extends { sender: 'user' } ? TUserMessage : TBotMessage;
+
+// type UMessage = TUserMessage | TBotMessage;
 
 export default function ChatClientComponent() {
-  const [messages, setMessages] = useState<Message[]>([]);
+  const [messages, setMessages] = useState<UMessage[]>([]);
   const [inputText, setInputText] = useState('');
   const endOfMessagesRef = useRef<HTMLDivElement>(null);
   const [finished, setFinished] = useState(false);
@@ -42,11 +52,29 @@ export default function ChatClientComponent() {
     setUserIcon(_userIcon);
   }, []);
 
-  const request: TChat = {
-    clientIssue: inputText,
-    counselingApproach: userType as string,
-    counselingEndFlag: false,
+  // const request: TChat = {
+  //   counselingApproach: userType as string,
+  //   clientInput: inputText,
+  //   counselingEndFlag: false,
+  // };
+
+  type TRequest = {
+    messages: UMessage[];
   };
+
+  const request: TRequest = {
+    messages: [
+      ...messages,
+      {
+        id: messages.length + 1,
+        text: inputText,
+        sender: 'user',
+        counselingApproach: userType ?? '',
+        counselingEndFlag: messages.length == 2,
+      },
+    ],
+  };
+
   const handleRequest = async () => {
     await fetch('/api/openai/chat', {
       method: 'POST',
@@ -58,19 +86,32 @@ export default function ChatClientComponent() {
       .then((response) => response.json())
       .then((data) => {
         const perseRes = JSON.parse(data);
-        console.log(data);
 
         if (messages.length > 0) {
           setMessages((pre) => [
             ...pre,
-            { id: pre.length, text: inputText, sender: 'user' },
+            {
+              id: pre.length,
+              text: inputText,
+              sender: 'user',
+              counselingApproach: userType ?? '',
+              counselingEndFlag: false,
+            },
           ]);
           setMessages((pre) => [
             ...pre,
             { id: pre.length, text: perseRes.answer, sender: 'bot' },
           ]);
         } else {
-          setMessages((pre) => [{ id: 1, text: inputText, sender: 'user' }]);
+          setMessages((pre) => [
+            {
+              id: 1,
+              text: inputText,
+              sender: 'user',
+              counselingApproach: userType ?? '',
+              counselingEndFlag: false,
+            },
+          ]);
           setMessages((pre) => [
             ...pre,
             { id: pre.length, text: perseRes.answer, sender: 'bot' },
