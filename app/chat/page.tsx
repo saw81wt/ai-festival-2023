@@ -8,6 +8,7 @@ import { Button, Input, Spinner } from '@nextui-org/react';
 import { TChat } from '@/types/TChat';
 import { UMessage } from '@/types/TMessage';
 import { type } from 'os';
+import ChatBubble from './ChatBubble';
 
 // type Message = {
 //   id: number;
@@ -153,19 +154,11 @@ export default function ChatClientComponent() {
       <div className="flex flex-col h-screen w-[480px]">
         <div className="overflow-auto flex-1 chat-box">
           {messages?.map((msg) => {
-            const order =
-              msg.sender === 'bot' ? 'flex-row' : 'flex-row-reverse';
+            const position =
+              msg.sender === 'bot' ? 'left' : 'right';
             const image_path = msg.sender === 'bot' ? botIcon : userIcon;
             return (
-              <div key={msg.id} className={`flex items-center mb-2 ${order}`}>
-                <Avatar src={image_path} className="m-2" />
-                <div
-                  key={msg.id}
-                  className={`message ${msg.sender} max-w-[320px]`}
-                >
-                  {msg.text}
-                </div>
-              </div>
+              <ChatBubble key={msg.id} message={msg.text} position={position} icon={image_path}/>
             );
           })}
           <div ref={endOfMessagesRef} />
