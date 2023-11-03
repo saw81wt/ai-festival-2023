@@ -5,15 +5,20 @@ import { Card, CardHeader, CardBody, Divider, Spacer } from "@nextui-org/react";
 import { RadioGroup, Radio } from "@nextui-org/react";
 import { requestQuestion } from "../actions";
 import { initRequestParams } from "@/constants/initRequestParams";
+import { useRouter } from "next/navigation";
 
 export default function Index() {
+  const router = useRouter()
   const [requestState, setRequestState] = useState(initRequestParams);
   const handleRequest = async() => {
     const res = await fetch('/api/openai', { method: "POST",body : JSON.stringify(requestState),  headers: {
       "Content-Type": "application/json",
       // 'Content-Type': 'application/x-www-form-urlencoded',
     },
-    }).then((response) => response.json()).then((data) => { console.log(data) })
+    }).then((response) => response.json()).then((data) => {
+      const jsonRes = JSON.parse(data) as unknown as {counselling_type : string}
+      router.push(`/chat?user_type=${jsonRes.counselling_type}`)
+    })
     // console.log(res.json())
     // console.log(JSON.stringify(res.body))
     // // const resJson = await res.json()

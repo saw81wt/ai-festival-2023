@@ -16,9 +16,6 @@ export async function POST(request: Request) {
   });
   if (!completion.message.content) return
   const res = completion.message.content
-  type TRes = {counselling_type :string} 
-  const covert = res as unknown as TRes
-  console.log("レス" + res)
-  console.log("コンバード"+ covert)
+  
   return NextResponse.json(res);
 }
