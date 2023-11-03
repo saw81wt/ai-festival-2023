@@ -124,8 +124,8 @@ export default function ChatClientComponent() {
 
   return (
     //
-    <div className="flex justify-center h-full">
-      <div className="flex flex-col h-screen w-[480px]">
+    <div className="flex justify-center h-screen">
+      <div className="flex flex-col h-screen w-[480px] py-8">
         <div className="overflow-auto flex-1 chat-box">
           {messages?.map((msg) => {
             const position =
