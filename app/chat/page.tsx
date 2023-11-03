@@ -53,6 +53,19 @@ export default function ChatClientComponent() {
     setUserIcon(_userIcon);
   }, []);
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setMessages((_) => [
+        {
+          id: 1,
+          text: "initial message",
+          sender: 'bot'
+        },
+      ]);
+    }, 1000);
+    return () => clearTimeout(timer);
+  }, [])
+
   // const request: TChat = {
   //   counselingApproach: userType as string,
   //   clientInput: inputText,
@@ -177,7 +190,7 @@ export default function ChatClientComponent() {
                 onChange={(e) => setInputText(e.target.value)}
                 placeholder="メッセージを入力"
               />
-              {isSubmitting ? <Spinner /> : <Button type="submit">送信</Button>}
+              {isSubmitting ? <Spinner /> : <Button type="submit" variant='light'>送信</Button>}
             </form>
           </div>
         )}
