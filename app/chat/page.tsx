@@ -16,7 +16,8 @@ interface Message {
 export default function ChatClientComponent() {
   const [messages, setMessages] = useState<Message[]>([])
   const [inputText, setInputText] = useState("")
-  const image_path = "/cool-man.png"
+  const bot_image_path = "/cool-man.png"
+  const user_image_path = "/avatar.png"
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -35,7 +36,7 @@ export default function ChatClientComponent() {
     } else {
       setMessages((pre) => [{ id: 1, text: inputText, sender: "user" }])
       const { answer } = await sendChat()
-      setMessages((pre) => [{ id: 1, text: answer , sender: "bot" }])
+      setMessages((pre) => [{ id: 2, text: answer , sender: "bot" }])
     }
 
     setInputText('');
@@ -48,6 +49,7 @@ export default function ChatClientComponent() {
         <div className="overflow-auto flex-1 chat-box">
           {messages?.map((msg) => {
             const order =  msg.sender === "bot" ? "flex-row" : "flex-row-reverse"
+            const image_path = msg.sender === "bot" ? bot_image_path : user_image_path
             return (
               <div className={`flex items-center mb-2 ${order}`}>
                 <Avatar src={image_path} className="m-2" />
