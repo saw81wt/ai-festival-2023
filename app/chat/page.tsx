@@ -51,7 +51,7 @@ export default function ChatClientComponent() {
             const order =  msg.sender === "bot" ? "flex-row" : "flex-row-reverse"
             const image_path = msg.sender === "bot" ? bot_image_path : user_image_path
             return (
-              <div className={`flex items-center mb-2 ${order}`}>
+              <div key={msg.id} className={`flex items-center mb-2 ${order}`}>
                 <Avatar src={image_path} className="m-2" />
                 <div key={msg.id} className={`message ${msg.sender} max-w-[320px]`}>
                   {msg.text}
