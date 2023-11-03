@@ -3,26 +3,9 @@
 import { useState, useRef, useEffect, useMemo } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { useRouter } from 'next/navigation';
-import { Avatar } from '@nextui-org/react';
 import { Button, Input, Spinner } from '@nextui-org/react';
-import { TChat } from '@/types/TChat';
 import { UMessage } from '@/types/TMessage';
-import { type } from 'os';
 import ChatBubble from './ChatBubble';
-
-// type Message = {
-//   id: number;
-//   text: string;
-//   sender: 'user' | 'bot';
-// };
-
-// type TUserMessage = Message & Omit<TChat, 'clientInput'>;
-
-// type TBotMessage = Message;
-
-// type TMessage<T> = T extends { sender: 'user' } ? TUserMessage : TBotMessage;
-
-// type UMessage = TUserMessage | TBotMessage;
 
 export default function ChatClientComponent() {
   const [messages, setMessages] = useState<UMessage[]>([]);
@@ -30,7 +13,7 @@ export default function ChatClientComponent() {
   const endOfMessagesRef = useRef<HTMLDivElement>(null);
   const [finished, setFinished] = useState(false);
   const [userIcon, setUserIcon] = useState('');
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(true);
   const router = useRouter();
   const params = useSearchParams();
   const userType = params.get('user_type');
@@ -53,11 +36,19 @@ export default function ChatClientComponent() {
     setUserIcon(_userIcon);
   }, []);
 
-  // const request: TChat = {
-  //   counselingApproach: userType as string,
-  //   clientInput: inputText,
-  //   counselingEndFlag: false,
-  // };
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setMessages((_) => [
+        {
+          id: 1,
+          text: "こんにちは、あなたの気持ちを共有してくれてありがとう。何か特定のことで心配事があるのかな？",
+          sender: 'bot'
+        },
+      ]);
+      setIsSubmitting(false);
+    }, 1000);
+    return () => clearTimeout(timer);
+  }, [])
 
   type TRequest = {
     messages: UMessage[];
@@ -81,6 +72,16 @@ export default function ChatClientComponent() {
   };
 
   const handleRequest = async () => {
+    setMessages((pre) => [
+      ...pre,
+      {
+        id: pre.length,
+        text: inputText,
+        sender: 'user',
+        counselingApproach: userType ?? '',
+        counselingEndFlag: false,
+      },
+    ]);
     await fetch('/api/openai/chat', {
       method: 'POST',
       body: JSON.stringify(request),
@@ -91,37 +92,10 @@ export default function ChatClientComponent() {
       .then((response) => response.json())
       .then((data) => {
         const perseRes = JSON.parse(data);
-
-        if (messages.length > 0) {
-          setMessages((pre) => [
-            ...pre,
-            {
-              id: pre.length,
-              text: inputText,
-              sender: 'user',
-              counselingApproach: userType ?? '',
-              counselingEndFlag: false,
-            },
-          ]);
-          setMessages((pre) => [
-            ...pre,
-            { id: pre.length, text: perseRes.answer, sender: 'bot' },
-          ]);
-        } else {
-          setMessages((pre) => [
-            {
-              id: 1,
-              text: inputText,
-              sender: 'user',
-              counselingApproach: userType ?? '',
-              counselingEndFlag: false,
-            },
-          ]);
-          setMessages((pre) => [
-            ...pre,
-            { id: pre.length + 1, text: perseRes.answer, sender: 'bot' },
-          ]);
-        }
+        setMessages((pre) => [
+          ...pre,
+          { id: pre.length, text: perseRes.answer, sender: 'bot' },
+        ]);
       });
   };
   const handleSubmit = async (e: React.FormEvent) => {
@@ -177,7 +151,7 @@ export default function ChatClientComponent() {
                 onChange={(e) => setInputText(e.target.value)}
                 placeholder="メッセージを入力"
               />
-              {isSubmitting ? <Spinner /> : <Button type="submit">送信</Button>}
+              {isSubmitting ? <Spinner className='h-12'/> : <Button type="submit" variant='light'>送信</Button>}
             </form>
           </div>
         )}
