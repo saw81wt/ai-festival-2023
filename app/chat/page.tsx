@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useRef, useEffect } from "react"
 import { Avatar } from "@nextui-org/react"
 import { Button } from "@nextui-org/react"
 import {Input} from "@nextui-org/react";
@@ -16,8 +16,13 @@ interface Message {
 export default function ChatClientComponent() {
   const [messages, setMessages] = useState<Message[]>([])
   const [inputText, setInputText] = useState("")
+  const endOfMessagesRef = useRef<HTMLDivElement>(null);
   const bot_image_path = "/cool-man.png"
   const user_image_path = "/avatar.png"
+
+  useEffect(() => {
+    endOfMessagesRef?.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [messages]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -62,6 +67,7 @@ export default function ChatClientComponent() {
               </div>
             );
           })}
+          <div ref={endOfMessagesRef} />
         </div>
         <div className="input-box">
           <form className="flex w-full" onSubmit={handleSubmit}>
