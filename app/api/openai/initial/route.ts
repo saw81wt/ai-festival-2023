@@ -6,8 +6,7 @@ import { NextResponse } from 'next/server';
 
 export async function POST(request: Request) {
   const jsonRequest = await request.json()
- const openai = new OpenAICollection();
-
+  const openai = new OpenAICollection();
   const completion = await openai.createCompletion({
     userContent: userInitialPromptContent(
       jsonRequest as TQuestion
@@ -16,6 +15,6 @@ export async function POST(request: Request) {
   });
   if (!completion.message.content) return
   const res = completion.message.content
-  
+
   return NextResponse.json(res);
 }

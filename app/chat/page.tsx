@@ -5,7 +5,6 @@ import { useRouter } from 'next/navigation'
 import { Avatar } from "@nextui-org/react"
 import { Button } from "@nextui-org/react"
 import { Input } from "@nextui-org/react";
-
 import { sendChat } from "./actions";
 
 interface Message {
