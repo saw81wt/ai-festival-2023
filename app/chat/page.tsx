@@ -29,7 +29,7 @@ export default function ChatClientComponent() {
   const endOfMessagesRef = useRef<HTMLDivElement>(null);
   const [finished, setFinished] = useState(false);
   const [userIcon, setUserIcon] = useState('');
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(true);
   const router = useRouter();
   const params = useSearchParams();
   const userType = params.get('user_type');
@@ -61,6 +61,7 @@ export default function ChatClientComponent() {
           sender: 'bot'
         },
       ]);
+      setIsSubmitting(false);
     }, 1000);
     return () => clearTimeout(timer);
   }, [])
