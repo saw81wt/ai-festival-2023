@@ -1,20 +1,24 @@
+import { OpenAICollection } from '@/constants/openaiCollection';
+import { INITIAL_SYSTEM_PROMPT_CONTENT, userInitialPromptContent } from '@/constants/prompt';
+import { TQuestion } from '@/types/TQuestion';
 import { NextResponse } from 'next/server';
-import {
-  INITIAL_SYSTEM_PROMPT_CONTENT,
-  MedicalQuestionnaire,
-  userInitialPromptContent,
-} from './_prompt';
-import { OpenAICollection } from './_openaiCollection';
+
 
 export async function POST(request: Request) {
-  const openai = new OpenAICollection();
+  const jsonRequest = await request.json()
+ const openai = new OpenAICollection();
 
   const completion = await openai.createCompletion({
     userContent: userInitialPromptContent(
-      request as unknown as MedicalQuestionnaire
+      jsonRequest as TQuestion
     ),
     systemPrompt: INITIAL_SYSTEM_PROMPT_CONTENT,
   });
-
-  return NextResponse.json(completion.message);
+  if (!completion.message.content) return
+  const res = completion.message.content
+  type TRes = {counselling_type :string} 
+  const covert = res as unknown as TRes
+  console.log("レス" + res)
+  console.log("コンバード"+ covert)
+  return NextResponse.json(res);
 }

@@ -8,9 +8,22 @@ import { initRequestParams } from "@/constants/initRequestParams";
 
 export default function Index() {
   const [requestState, setRequestState] = useState(initRequestParams);
+  const handleRequest = async() => {
+    const res = await fetch('/api/openai', { method: "POST",body : JSON.stringify(requestState),  headers: {
+      "Content-Type": "application/json",
+      // 'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    }).then((response) => response.json()).then((data) => { console.log(data) })
+    // console.log(res.json())
+    // console.log(JSON.stringify(res.body))
+    // // const resJson = await res.json()
+    // console.log(resJson)
+    // console.log(resJson)
+    // console.log(res)
+  }
   return (
     <>
-      <form action={() => requestQuestion(requestState)}>
+      <form action={async () => await handleRequest()}>
         <div className="flex justify-center">
           <Card className="max-w-[400px]">
             <CardHeader className="flex gap-3">
