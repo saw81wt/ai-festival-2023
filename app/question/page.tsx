@@ -1,13 +1,24 @@
-'use client';
+"use client";
 
-import React from 'react';
-import { Card, CardHeader, CardBody, Divider, Spacer } from '@nextui-org/react';
-import { RadioGroup, Radio } from '@nextui-org/react';
+import React, { useState } from "react";
+import { Card, CardHeader, CardBody, Divider, Spacer } from "@nextui-org/react";
+import { RadioGroup, Radio } from "@nextui-org/react";
+import { requestQuestion } from "../actions";
+
+export const initRequestParams = {
+  question1: "",
+  question2: "",
+  question3: "",
+  question4: "",
+  question5: "",
+  question6: "",
+};
 
 export default function Index() {
+  const [requestState, setRequestState] = useState(initRequestParams);
   return (
     <>
-      <form>
+      <form action={() => requestQuestion(requestState)}>
         <div className="flex justify-center">
           <Card className="max-w-[400px]">
             <CardHeader className="flex gap-3">
@@ -15,7 +26,14 @@ export default function Index() {
             </CardHeader>
             <Divider />
             <CardBody>
-              <RadioGroup>
+              <RadioGroup
+                onValueChange={(value) =>
+                  setRequestState((pre) => ({
+                    ...pre,
+                    ...{ question1: value },
+                  }))
+                }
+              >
                 <Radio value="Anxiety">不安</Radio>
                 <Radio value="Depression">落ち込み</Radio>
                 <Radio value="Irritability">イライラ</Radio>
@@ -38,7 +56,14 @@ export default function Index() {
             </CardHeader>
             <Divider />
             <CardBody>
-              <RadioGroup>
+              <RadioGroup
+                onValueChange={(value) =>
+                  setRequestState((pre) => ({
+                    ...pre,
+                    ...{ question2: value },
+                  }))
+                }
+              >
                 <Radio value="Low">低い</Radio>
                 <Radio value="Slightly Low">やや低い</Radio>
                 <Radio value="Moderate">中程度</Radio>
@@ -59,7 +84,14 @@ export default function Index() {
             </CardHeader>
             <Divider />
             <CardBody>
-              <RadioGroup>
+              <RadioGroup
+                onValueChange={(value) =>
+                  setRequestState((pre) => ({
+                    ...pre,
+                    ...{ question3: value },
+                  }))
+                }
+              >
                 <Radio value="Social Gathering">
                   大勢でワイワイとパーティーをした
                 </Radio>
@@ -85,7 +117,14 @@ export default function Index() {
             </CardHeader>
             <Divider />
             <CardBody>
-              <RadioGroup>
+              <RadioGroup
+                onValueChange={(value) =>
+                  setRequestState((pre) => ({
+                    ...pre,
+                    ...{ question4: value },
+                  }))
+                }
+              >
                 <Radio value="Exercise">スポーツや運動をする</Radio>
                 <Radio value="Music Listening or Playing">
                   音楽を聴く、または演奏する
@@ -110,7 +149,14 @@ export default function Index() {
             </CardHeader>
             <Divider />
             <CardBody>
-              <RadioGroup>
+              <RadioGroup
+                onValueChange={(value) =>
+                  setRequestState((pre) => ({
+                    ...pre,
+                    ...{ question5: value },
+                  }))
+                }
+              >
                 <Radio value="Gather All Information Before Taking Action">
                   必要な情報をすべて集めてから対処する
                 </Radio>
@@ -139,7 +185,14 @@ export default function Index() {
             </CardHeader>
             <Divider />
             <CardBody>
-              <RadioGroup>
+              <RadioGroup
+                onValueChange={(value) =>
+                  setRequestState((pre) => ({
+                    ...pre,
+                    ...{ question6: value },
+                  }))
+                }
+              >
                 <Radio value="Adventure and Exploration">
                   アドベンチャーと探索：新しい場所への旅行やアクティビティ
                 </Radio>
@@ -154,6 +207,10 @@ export default function Index() {
             </CardBody>
             <Divider />
           </Card>
+        </div>
+
+        <div className="flex justify-center">
+          <input type="submit" />
         </div>
       </form>
     </>
