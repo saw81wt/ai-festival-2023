@@ -4,24 +4,8 @@ import { useState, useRef, useEffect, useMemo } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { useRouter } from 'next/navigation';
 import { Button, Input, Spinner } from '@nextui-org/react';
-import { TChat } from '@/types/TChat';
 import { UMessage } from '@/types/TMessage';
-import { type } from 'os';
 import ChatBubble from './ChatBubble';
-
-// type Message = {
-//   id: number;
-//   text: string;
-//   sender: 'user' | 'bot';
-// };
-
-// type TUserMessage = Message & Omit<TChat, 'clientInput'>;
-
-// type TBotMessage = Message;
-
-// type TMessage<T> = T extends { sender: 'user' } ? TUserMessage : TBotMessage;
-
-// type UMessage = TUserMessage | TBotMessage;
 
 export default function ChatClientComponent() {
   const [messages, setMessages] = useState<UMessage[]>([]);
@@ -57,7 +41,7 @@ export default function ChatClientComponent() {
       setMessages((_) => [
         {
           id: 1,
-          text: "initial message",
+          text: "こんにちは、あなたの気持ちを共有してくれてありがとう。何か特定のことで心配事があるのかな？",
           sender: 'bot'
         },
       ]);
@@ -65,12 +49,6 @@ export default function ChatClientComponent() {
     }, 1000);
     return () => clearTimeout(timer);
   }, [])
-
-  // const request: TChat = {
-  //   counselingApproach: userType as string,
-  //   clientInput: inputText,
-  //   counselingEndFlag: false,
-  // };
 
   type TRequest = {
     messages: UMessage[];
