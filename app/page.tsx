@@ -1,20 +1,27 @@
-"use client";
+'use client';
 
-import { Avatar } from "@nextui-org/react";
-import Link from "next/link";
-import { useEffect, useState } from "react";
-import {Image} from "@nextui-org/react";
-
+import { Avatar } from '@nextui-org/react';
+import Link from 'next/link';
+import { useEffect, useState } from 'react';
+import { Image } from '@nextui-org/react';
 
 export default function Home() {
-  const [userIcon, setUserIcon] = useState("");
+  const [userIcon, setUserIcon] = useState('');
   const imagePaths = [
-    "/avatar.png", "/avatar.png", "/avatar.png", "/avatar.png", "/avatar.png",
-    "/cool-man.png", "/cool-man.png", "/cool-man.png", "/cool-man.png", "/cool-man.png"
-  ]
+    '/avatar.png',
+    '/avatar.png',
+    '/avatar.png',
+    '/avatar.png',
+    '/avatar.png',
+    '/cool-man.png',
+    '/cool-man.png',
+    '/cool-man.png',
+    '/cool-man.png',
+    '/cool-man.png',
+  ];
 
   const onClickNext = () => {
-    localStorage.setItem("userIcon", userIcon);
+    localStorage.setItem('userIcon', userIcon);
   };
 
   // const topUserIcons = userIcons.slice(0, 15);
@@ -24,14 +31,14 @@ export default function Home() {
   };
 
   useEffect(() => {
-    const _userIcon = localStorage.getItem("userIcon") || "";
+    const _userIcon = localStorage.getItem('userIcon') || '';
     setUserIcon(_userIcon);
   }, []);
 
   return (
     <main className="h-screen w-[390px] mx-auto px-xs py-sm flex space-y-8 flex-col items-center justify-center">
       <div className="flex w-full items-center">
-        <Image width={56} src="logo.png"/>
+        <Image width={56} src="logo.png" />
         <p className="font-bold text-3xl ml-4">KIRAKU</p>
       </div>
       <div className="w-full">
@@ -39,12 +46,16 @@ export default function Home() {
           アイコン選択
         </div>
         <div className="grid grid-cols-5 gap-4 place-items-center mt-sm">
-          {imagePaths.map((icon, i) => (
+          {imagePaths.map((icon) => (
             <Avatar
-              isBordered={icon==userIcon}
-              onClick={() => {onClickIcon(icon)}}
+              key={icon}
+              isBordered={icon == userIcon}
+              onClick={() => {
+                onClickIcon(icon);
+              }}
               src={icon}
-              className="m-2" />
+              className="m-2"
+            />
           ))}
         </div>
       </div>
