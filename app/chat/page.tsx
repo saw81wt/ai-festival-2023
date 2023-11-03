@@ -19,14 +19,19 @@ export default function ChatClientComponent() {
   const [inputText, setInputText] = useState("")
   const endOfMessagesRef = useRef<HTMLDivElement>(null);
   const [finished, setFinished] = useState(false);
+  const [userIcon, setUserIcon] = useState("");
   const router = useRouter()
   const bot_image_path = "/cool-man.png"
-  const user_image_path = "/avatar.png"
   const max_chat_length = 2
 
   useEffect(() => {
     endOfMessagesRef?.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
+
+  useEffect(() => {
+    const _userIcon = localStorage.getItem("userIcon") || "";
+    setUserIcon(_userIcon);
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -64,7 +69,7 @@ export default function ChatClientComponent() {
         <div className="overflow-auto flex-1 chat-box">
           {messages?.map((msg) => {
             const order =  msg.sender === "bot" ? "flex-row" : "flex-row-reverse"
-            const image_path = msg.sender === "bot" ? bot_image_path : user_image_path
+            const image_path = msg.sender === "bot" ? bot_image_path : userIcon
             return (
               <div key={msg.id} className={`flex items-center mb-2 ${order}`}>
                 <Avatar src={image_path} className="m-2" />
