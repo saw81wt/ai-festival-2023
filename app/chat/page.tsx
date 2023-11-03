@@ -4,8 +4,7 @@ import { useState, useRef, useEffect, useMemo } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { useRouter } from 'next/navigation';
 import { Avatar } from '@nextui-org/react';
-import { Button } from '@nextui-org/react';
-import { Input } from '@nextui-org/react';
+import { Button, Input, Spinner } from '@nextui-org/react';
 import { TChat } from '@/types/TChat';
 
 interface Message {
@@ -140,7 +139,7 @@ export default function ChatClientComponent() {
                 onChange={(e) => setInputText(e.target.value)}
                 placeholder="メッセージを入力"
               />
-              <Button type="submit">送信</Button>
+              {isSubmitting ? <Spinner /> : <Button type="submit">送信</Button>}
             </form>
           </div>
         )}
