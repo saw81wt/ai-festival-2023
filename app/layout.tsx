@@ -18,7 +18,7 @@ export default function RootLayout({
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </head>
-      <body className="bg-emerald-200">
+      <body className="bg-emerald-200 text-gray-700">
         <Providers>{children}</Providers>
       </body>
     </html>

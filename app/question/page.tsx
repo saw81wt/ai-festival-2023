@@ -65,7 +65,7 @@ export default function Index() {
         <Spacer y={2} />
 
         <div className="flex justify-center">
-          <Card className="min-w-[400px]">
+          <Card className="w-[400px]">
             <CardHeader className="flex gap-3">
               Q2：現在のストレスレベル
             </CardHeader>
