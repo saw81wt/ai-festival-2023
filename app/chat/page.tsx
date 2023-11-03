@@ -20,6 +20,7 @@ export default function ChatClientComponent() {
   const endOfMessagesRef = useRef<HTMLDivElement>(null);
   const [finished, setFinished] = useState(false);
   const [userIcon, setUserIcon] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const router = useRouter();
   const params = useSearchParams();
   const userType = params.get('user_type');
@@ -80,10 +81,15 @@ export default function ChatClientComponent() {
   };
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (inputText.trim() === '') {
+    if (inputText.trim() === '' || isSubmitting) {
       return;
-    } else {
+    }
+
+    setIsSubmitting(true);
+    try {
       await handleRequest();
+    } finally {
+      setIsSubmitting(false);
     }
 
     if (
