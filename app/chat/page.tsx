@@ -86,7 +86,11 @@ export default function ChatClientComponent() {
       await handleRequest();
     }
 
-    if (messages.length >= max_chat_length) {
+    if (
+      messages.filter((x) => {
+        return x.sender === 'user';
+      }).length >= max_chat_length
+    ) {
       setFinished(true);
     }
 
