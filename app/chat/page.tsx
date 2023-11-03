@@ -1,8 +1,11 @@
-'use client';
-import { useState } from 'react';
-import { Avatar } from '@nextui-org/react';
-import { Button } from '@nextui-org/react';
-import { Input } from '@nextui-org/react';
+"use client"
+
+import { useState } from "react"
+import { Avatar } from "@nextui-org/react"
+import { Button } from "@nextui-org/react"
+import {Input} from "@nextui-org/react";
+
+import { sendChat } from "./actions";
 
 interface Message {
   id: number;
@@ -11,20 +14,29 @@ interface Message {
 }
 
 export default function ChatClientComponent() {
-  const [messages, setMessages] = useState<Message[]>([]);
-  const [inputText, setInputText] = useState('');
+  const [messages, setMessages] = useState<Message[]>([])
+  const [inputText, setInputText] = useState("")
+  const bot_image_path = "/cool-man.png"
+  const user_image_path = "/avatar.png"
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (inputText.trim() === '') return;
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    if (inputText.trim() === "") return
 
     if (messages.length > 0) {
       setMessages((pre) => [
         ...pre,
-        { id: pre.length, text: inputText, sender: 'user' },
-      ]);
+        { id: pre.length, text: inputText, sender: "user" },
+      ])
+      const { answer } = await sendChat()
+      setMessages((pre) => [
+        ...pre,
+        { id: pre.length, text: answer, sender: "bot" },
+      ])
     } else {
-      setMessages((pre) => [{ id: 1, text: inputText, sender: 'user' }]);
+      setMessages((pre) => [{ id: 1, text: inputText, sender: "user" }])
+      const { answer } = await sendChat()
+      setMessages((pre) => [{ id: 2, text: answer , sender: "bot" }])
     }
 
     setInputText('');
@@ -36,12 +48,12 @@ export default function ChatClientComponent() {
       <div className="flex flex-col h-screen w-[480px]">
         <div className="overflow-auto flex-1 chat-box">
           {messages?.map((msg) => {
-            const order =
-              msg.sender === 'user' ? 'flex-row' : 'flex-row-reverse';
+            const order =  msg.sender === "bot" ? "flex-row" : "flex-row-reverse"
+            const image_path = msg.sender === "bot" ? bot_image_path : user_image_path
             return (
-              <div key={msg.id} className={`flex items-center mb-2 ${order}`}>
-                <Avatar name="Junior" className="m-2" />
-                <div className={`message ${msg.sender} max-w-[320px]`}>
+              <div className={`flex items-center mb-2 ${order}`}>
+                <Avatar src={image_path} className="m-2" />
+                <div key={msg.id} className={`message ${msg.sender} max-w-[320px]`}>
                   {msg.text}
                 </div>
               </div>
