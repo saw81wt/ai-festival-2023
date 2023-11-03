@@ -9,7 +9,10 @@ import { useRouter } from 'next/navigation';
 export default function Index() {
   const router = useRouter();
   const [requestState, setRequestState] = useState(initRequestParams);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const handleRequest = async () => {
+    if (isSubmitting) return;
+    setIsSubmitting(true);
     const res = await fetch('/api/openai/initial', {
       method: 'POST',
       body: JSON.stringify(requestState),
@@ -21,6 +24,9 @@ export default function Index() {
       .then((data) => {
         const jsonRes = JSON.parse(data);
         router.push(`/chat?user_type=${jsonRes.counselling_type}`);
+      })
+      .finally(() => {
+        setIsSubmitting(false);
       });
   };
   return (
