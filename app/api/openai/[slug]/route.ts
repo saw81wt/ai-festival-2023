@@ -1,9 +1,7 @@
 import OpenAI from "openai"
 import { NextResponse } from "next/server"
 
-
-
-export async function GET(request: Request, { params }:{ params: { slug: string } }) {
+export async function GET(request: Request, { params }) {
   const openai = new OpenAI()
 
   const completion = await openai.chat.completions.create({
