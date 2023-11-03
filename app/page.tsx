@@ -1,6 +1,6 @@
 'use client';
 
-import { Avatar } from '@nextui-org/react';
+import { Avatar, Button } from '@nextui-org/react';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { Image } from '@nextui-org/react';
@@ -36,16 +36,20 @@ export default function Home() {
   }, []);
 
   return (
-    <main className="h-screen w-[390px] mx-auto px-xs py-sm flex space-y-8 flex-col items-center justify-center">
-      <div className="flex w-full items-center">
-        <Image alt="logo" width={56} src="logo.png" />
-        <p className="font-bold text-3xl ml-4">KIRAKU</p>
+    <main className="h-screen w-[390px] mx-auto px-xs py-sm flex space-y-6 flex-col items-center justify-center">
+      <div className="flex w-full items-center justify-center">
+        <Image alt="logo" width={128} src="logo.png" />
       </div>
+      <p className="leading-7 [&:not(:first-child)]:mt-6">
+        「kiraku」は、日常生活におけるストレスや精神的な負担を軽減し、誰もがいつでもどこでも気楽にアクセスできるパーソナルヘルスケアAIを提供します。
+心理的負担を和らげることに特化したユーザーフレンドリーなデザインと機能を備えたアプリケーションです。
+「気楽・気持ちが楽になる・気軽に使える」を意味する「kiraku」は、日本語の「気楽」をもじった造語です。
+      </p>
       <div className="w-full">
-        <div className="w-fit mr-auto mt-xl font-bold text-lg">
-          アイコン選択
+        <div className="w-fit mr-auto mt-8 font-bold text-lg">
+          アイコンを選択
         </div>
-        <div className="grid grid-cols-5 gap-4 mt-sm">
+        <div className="grid grid-cols-5 gap-4 place-items-center mt-2">
           {imagePaths.map((icon) => (
             <Avatar
               key={icon}
@@ -54,20 +58,23 @@ export default function Home() {
                 onClickIcon(icon);
               }}
               src={icon}
-              className="m-2"
+              color='primary'
+              className="m-2 "
             />
           ))}
         </div>
       </div>
       <div className="w-full mt-md text-center">
         <Link href="/question">
-          <button
-            className="w-60 h-12 text-center text-white text-xl rounded-4xl shadow-base tracking-[1rem] indent-[1rem] disabled:opacity-50 disabled:cursor-not-allowed"
+          <Button
+            className="h-12 text-center text-gray-700 text-md shadow-base disabled:opacity-50 disabled:cursor-not-allowed"
+            variant='light'
+            radius='md'
             onClick={onClickNext}
             disabled={!userIcon}
           >
-            決定
-          </button>
+            カウンセリングをはじめる
+          </Button>
         </Link>
       </div>
     </main>
