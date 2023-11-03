@@ -1,28 +1,21 @@
 import OpenAI from 'openai';
 import { NextResponse } from 'next/server';
 import {
-  INITIAL_SYSTEM_PROMPT,
-  userInitialPrompt,
+  INITIAL_SYSTEM_PROMPT_CONTENT,
   MedicalQuestionnaire,
-} from './_prompt';
+  userInitialPromptContent,
+} from "./_prompt"
+import { OpenAICollection } from "./_openaiCollection"
 
-export async function GET(request: Request) {
-  const openai = new OpenAI();
+export async function POST(request: Request) {
+  const openai = new OpenAICollection()
 
-  const completion = await openai.chat.completions.create({
-    messages: [
-      {
-        role: 'system',
-        content: INITIAL_SYSTEM_PROMPT,
-      },
-      {
-        role: 'user',
-        content: '',
-      },
-    ],
-    model: 'gpt-4',
-    temperature: 0,
-  });
+  const completion = await openai.createCompletion({
+    userContent: userInitialPromptContent(
+      request as unknown as MedicalQuestionnaire
+    ),
+    systemPrompt: INITIAL_SYSTEM_PROMPT_CONTENT,
+  })
 
-  return NextResponse.json(completion.choices[0].message);
+  return NextResponse.json(completion.message)
 }

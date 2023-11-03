@@ -1,41 +1,53 @@
 import OpenAI from 'openai';
 
 interface CompletionOptions {
-  systemPrompt: string;
-  userContent: string;
-  model?: string;
-  temperature?: number;
+  userContent: string
+  systemPrompt?: string
 }
 
-class OpenAICollection {
-  private openai: OpenAI;
+interface IOpenAICollectionParams {
+  model: GptModelType
+  temperature: number
+}
+type GptModelType = "gpt-4" | "gpt-3.5-turbo"
 
-  constructor() {
-    this.openai = new OpenAI();
+export class OpenAICollection {
+  private openai: OpenAI
+  private model: GptModelType = "gpt-4"
+  private temperature: number = 0
+
+  constructor(param?: IOpenAICollectionParams) {
+    if (param) {
+      this.model = param.model
+      this.temperature = param.temperature
+    }
+    this.openai = new OpenAI()
   }
 
   async createCompletion(options: CompletionOptions) {
-    const {
-      systemPrompt,
-      userContent,
-      model = 'gpt-4',
-      temperature = 0,
-    } = options;
+    const { userContent, systemPrompt } = options
 
     const completion = await this.openai.chat.completions.create({
-      messages: [
-        {
-          role: 'system',
-          content: systemPrompt,
-        },
-        {
-          role: 'user',
-          content: userContent,
-        },
-      ],
-      model: model,
-      temperature: temperature,
-    });
+      messages: systemPrompt
+        ? [
+            {
+              role: "system",
+              content: systemPrompt,
+            },
+            {
+              role: "user",
+              content: userContent,
+            },
+          ]
+        : [
+            {
+              role: "user",
+              content: userContent,
+            },
+          ],
+      model: this.model,
+      temperature: this.temperature,
+    })
 
     return completion.choices[0];
   }

@@ -7,7 +7,7 @@ export interface MedicalQuestionnaire {
   idealWeekend: string;
 }
 
-export const INITIAL_SYSTEM_PROMPT = `命令
+export const INITIAL_SYSTEM_PROMPT_CONTENT = `命令
 これから以下の[## 制約条件]に厳密に従ってロールプレイを行ってください
 
 制約条件
@@ -16,7 +16,7 @@ export const INITIAL_SYSTEM_PROMPT = `命令
 出力フォーマット
 {"counselling_type": string};`;
 
-export const userInitialPrompt = (param: MedicalQuestionnaire) => {
+export const userInitialPromptContent = (param: MedicalQuestionnaire) => {
   return `あなたはクライアントの好みと現在の精神状態に基づいてカウンセリングアプローチを推薦するために設計されたメンタルヘルスアシスタントです。提供された[# 問診票の情報]を使って、最適なカウンセリングアプローチを決定するというロールプレイを行なってください。ただし、以下の[# 出力フロー]に従って、実行してください。：発散系（共感とカジュアルな会話で悩みを和らげる）か収束系（問題解決に焦点を当てた直接的な質問とアドバイス）。
       問診票の情報
       心理的不調：${param.psychologicalDisorder}
