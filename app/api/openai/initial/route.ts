@@ -1,5 +1,5 @@
 import { OpenAICollection } from '@/constants/openaiCollection';
-import { INITIAL_SYSTEM_PROMPT_CONTENT, userInitialPromptContent } from '@/constants/prompt';
+import { INITIAL_SYSTEM_PROMPT_CONTENT, userInitialPromptContent } from '@/constants/initialPrompt';
 import { TQuestion } from '@/types/TQuestion';
 import { NextResponse } from 'next/server';
 
