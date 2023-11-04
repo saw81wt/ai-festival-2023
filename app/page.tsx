@@ -41,9 +41,9 @@ export default function Home() {
         <Image alt="logo" width={128} src="logo.png" />
       </div>
       <p className="leading-7 [&:not(:first-child)]:mt-6">
-        「kiraku」は、日常生活におけるストレスや精神的な負担を軽減し、誰もがいつでもどこでも気楽にアクセスできるパーソナルヘルスケアAIを提供します。
-心理的負担を和らげることに特化したユーザーフレンドリーなデザインと機能を備えたアプリケーションです。
-「気楽・気持ちが楽になる・気軽に使える」を意味する「kiraku」は、日本語の「気楽」をもじった造語です。
+        「kiraku」は、「気楽に気分を楽にする」をコンセプトに、日常生活におけるストレスや精神的な負担を軽減し、誰もがいつでもどこでも気楽にアクセスできるパーソナルヘルスケアAIを提供します。
+        心理的負担を和らげることに特化したユーザーフレンドリーなデザインと機能を備えたアプリケーションです。
+        「気楽・気持ちが楽になる・喜怒哀楽」を意味する「kiraku」は、これらをもじった造語です。
       </p>
       <div className="w-full">
         <div className="w-fit mr-auto mt-8 font-bold text-lg">
@@ -58,7 +58,7 @@ export default function Home() {
                 onClickIcon(icon);
               }}
               src={icon}
-              color='primary'
+              color="primary"
               className="m-2 "
             />
           ))}
@@ -68,8 +68,8 @@ export default function Home() {
         <Link href="/question">
           <Button
             className="h-12 text-center text-gray-700 text-md shadow-base disabled:opacity-50 disabled:cursor-not-allowed"
-            variant='light'
-            radius='md'
+            variant="light"
+            radius="md"
             onClick={onClickNext}
             disabled={!userIcon}
           >
