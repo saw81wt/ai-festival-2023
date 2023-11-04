@@ -13,6 +13,7 @@ export default function ChatClientComponent() {
   const endOfMessagesRef = useRef<HTMLDivElement>(null);
   const [finished, setFinished] = useState(false);
   const [userIcon, setUserIcon] = useState('');
+  const [userIssue, setUserIssue] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(true);
   const router = useRouter();
   const params = useSearchParams();
@@ -41,14 +42,14 @@ export default function ChatClientComponent() {
       setMessages((_) => [
         {
           id: 1,
-          text: "こんにちは、あなたの気持ちを共有してくれてありがとう。何か特定のことで心配事があるのかな？",
-          sender: 'bot'
+          text: 'こんにちは、あなたの気持ちを共有してくれてありがとう。何か特定のことで心配事があるのかな？',
+          sender: 'bot',
         },
       ]);
       setIsSubmitting(false);
     }, 1000);
     return () => clearTimeout(timer);
-  }, [])
+  }, []);
 
   type TRequest = {
     messages: UMessage[];
@@ -62,6 +63,7 @@ export default function ChatClientComponent() {
         text: inputText,
         sender: 'user',
         counselingApproach: userType ?? '',
+        clientIssue: userIssue,
         counselingEndFlag:
           messages.filter((x) => {
             return x.sender === 'user';
@@ -72,6 +74,9 @@ export default function ChatClientComponent() {
   };
 
   const handleRequest = async () => {
+    if (userIssue == '') {
+      setUserIssue(inputText);
+    }
     setMessages((pre) => [
       ...pre,
       {
@@ -79,6 +84,7 @@ export default function ChatClientComponent() {
         text: inputText,
         sender: 'user',
         counselingApproach: userType ?? '',
+        userIssue: userIssue,
         counselingEndFlag: false,
       },
     ]);
@@ -128,11 +134,15 @@ export default function ChatClientComponent() {
       <div className="flex flex-col h-screen w-[480px] py-8">
         <div className="overflow-auto flex-1 chat-box">
           {messages?.map((msg) => {
-            const position =
-              msg.sender === 'bot' ? 'left' : 'right';
+            const position = msg.sender === 'bot' ? 'left' : 'right';
             const image_path = msg.sender === 'bot' ? botIcon : userIcon;
             return (
-              <ChatBubble key={msg.id} message={msg.text} position={position} icon={image_path}/>
+              <ChatBubble
+                key={msg.id}
+                message={msg.text}
+                position={position}
+                icon={image_path}
+              />
             );
           })}
           <div ref={endOfMessagesRef} />
@@ -151,7 +161,13 @@ export default function ChatClientComponent() {
                 onChange={(e) => setInputText(e.target.value)}
                 placeholder="メッセージを入力"
               />
-              {isSubmitting ? <Spinner className='h-12'/> : <Button type="submit" variant='light'>送信</Button>}
+              {isSubmitting ? (
+                <Spinner className="h-12" />
+              ) : (
+                <Button type="submit" variant="light">
+                  送信
+                </Button>
+              )}
             </form>
           </div>
         )}
