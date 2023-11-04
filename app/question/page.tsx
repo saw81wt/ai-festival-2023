@@ -234,7 +234,7 @@ export default function Index() {
 
         <div className="flex justify-center py-3">
 
-          <Button type="submit">
+          <Button type="submit" color="primary">
             {isSubmitting ? (
             <Spinner />
           ) : ("送信")}</Button>

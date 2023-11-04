@@ -67,9 +67,9 @@ export default function Home() {
       <div className="w-full mt-md text-center">
         <Link href="/question">
           <Button
-            className="h-12 text-center text-gray-700 text-md shadow-base disabled:opacity-50 disabled:cursor-not-allowed"
-            variant="light"
-            radius="md"
+            className="h-12 text-center text-white text-md shadow-base disabled:opacity-50 disabled:cursor-not-allowed"
+            color="primary"
+            radius='md'
             onClick={onClickNext}
             disabled={!userIcon}
           >
