@@ -42,8 +42,7 @@ export default function Home() {
       </div>
       <p className="leading-7 [&:not(:first-child)]:mt-6">
         「kiraku」は、「気楽に気分を楽にする」をコンセプトに、日常生活におけるストレスや精神的な負担を軽減し、誰もがいつでもどこでも気楽にアクセスできるパーソナルヘルスケアAIを提供します。
-        心理的負担を和らげることに特化したユーザーフレンドリーなデザインと機能を備えたアプリケーションです。
-        「気楽・気持ちが楽になる・喜怒哀楽」を意味する「kiraku」は、これらをもじった造語です。
+        心理的負担を和らげることに特化したユーザーフレンドリーなデザインと機能を備えたアプリケーションであり、「気楽・気持ちが楽になる・喜怒哀楽」を意味する「kiraku」は、これらをもじった造語です。
       </p>
       <div className="w-full">
         <div className="w-fit mr-auto mt-8 font-bold text-lg">
@@ -67,9 +66,9 @@ export default function Home() {
       <div className="w-full mt-md text-center">
         <Link href="/question">
           <Button
-            className="h-12 text-center text-gray-700 text-md shadow-base disabled:opacity-50 disabled:cursor-not-allowed"
-            variant="light"
-            radius="md"
+            className="h-12 text-center text-white text-md shadow-base disabled:opacity-50 disabled:cursor-not-allowed"
+            color="primary"
+            radius='md'
             onClick={onClickNext}
             disabled={!userIcon}
           >

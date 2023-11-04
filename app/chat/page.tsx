@@ -176,9 +176,11 @@ export default function ChatClientComponent() {
                 placeholder="メッセージを入力"
               />
               {isSubmitting ? (
-                <Spinner className="h-12" />
+                <Button color="primary" isDisabled className="text-white">
+                  <Spinner color='default' className="h-12 text-white" />
+                </Button>
               ) : (
-                <Button type="submit" variant="light">
+                <Button color="primary" type="submit" className="text-white">
                   送信
                 </Button>
               )}
