@@ -15,6 +15,7 @@ export default function ChatClientComponent() {
   const [userIcon, setUserIcon] = useState('');
   const [userIssue, setUserIssue] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(true);
+  const [maxChatLength, setMaxChatLength] = useState(2);
   const router = useRouter();
   const params = useSearchParams();
   const userType = params.get('user_type');
@@ -26,7 +27,6 @@ export default function ChatClientComponent() {
     const random = Math.floor(Math.random() * 2);
     return userType == '発散系' ? tenderBotIcons[random] : coolBotIcons[random];
   }, [userType]);
-  const max_chat_length = 2;
 
   useEffect(() => {
     endOfMessagesRef?.current?.scrollIntoView({ behavior: 'smooth' });
@@ -68,7 +68,7 @@ export default function ChatClientComponent() {
           messages.filter((x) => {
             return x.sender === 'user';
           }).length >=
-          max_chat_length - 1,
+          maxChatLength - 1,
       },
     ],
   };
@@ -120,7 +120,7 @@ export default function ChatClientComponent() {
     if (
       messages.filter((x) => {
         return x.sender === 'user';
-      }).length >= max_chat_length
+      }).length >= maxChatLength
     ) {
       setFinished(true);
     }
@@ -147,10 +147,24 @@ export default function ChatClientComponent() {
           })}
           <div ref={endOfMessagesRef} />
         </div>
-        {finished ? (
-          <Button type="button" onClick={() => router.push('/')}>
+        {
+         finished && maxChatLength > 7 ?
+         <Button radius="none" variant='shadow' type="button"onClick={() => router.push('/')}>
             TOPに戻る
-          </Button>
+          </Button> :
+         finished ? (
+          <div className='flex w-full space-x-1'>
+            <Button radius="none" variant='shadow' type="button" className='w-1/2' onClick={() => router.push('/')}>
+              TOPに戻る
+            </Button>
+            <Button radius="none" variant='shadow' type="button" className='w-1/2'
+              onClick={() => {
+                setMaxChatLength(maxChatLength + 3)
+                setFinished(false)
+              }}>
+              話を続ける
+            </Button>
+          </div>
         ) : (
           <div className="input-box">
             <form className="flex w-full" onSubmit={handleSubmit}>
