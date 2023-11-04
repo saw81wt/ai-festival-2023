@@ -236,7 +236,7 @@ export default function Index() {
 
           <Button type="submit" color="primary">
             {isSubmitting ? (
-            <Spinner />
+            <Spinner color='default'/>
           ) : ("送信")}</Button>
 
         </div>
