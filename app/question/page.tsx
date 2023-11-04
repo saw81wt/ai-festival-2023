@@ -117,6 +117,9 @@ export default function Index() {
                 <Radio value="友人と趣味の活動を共にした">
                   友人と趣味の活動を共にした
                 </Radio>
+                <Radio value="覚えていない">
+                  覚えていない
+                </Radio>
               </RadioGroup>
             </CardBody>
             <Divider />
@@ -147,6 +150,9 @@ export default function Index() {
                 <Radio value="読書や瞑想">読書や瞑想</Radio>
                 <Radio value="友達と話して気晴らしする">
                   友達と話して気晴らしする
+                </Radio>
+                <Radio value="趣味に没頭する">
+                  趣味に没頭する
                 </Radio>
               </RadioGroup>
             </CardBody>
@@ -227,12 +233,12 @@ export default function Index() {
         </div>
 
         <div className="flex justify-center py-3">
-      
+
           <Button type="submit">
             {isSubmitting ? (
             <Spinner />
           ) : ("送信")}</Button>
-          
+
         </div>
       </form>
     </div>
