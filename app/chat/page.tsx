@@ -149,15 +149,15 @@ export default function ChatClientComponent() {
         </div>
         {
          finished && maxChatLength > 7 ?
-         <Button radius="none" variant='shadow' type="button"onClick={() => router.push('/')}>
+         <Button radius="none" color="primary" className="text-white" type="button"onClick={() => router.push('/')}>
             TOPに戻る
           </Button> :
          finished ? (
           <div className='flex w-full space-x-1'>
-            <Button radius="none" variant='shadow' type="button" className='w-1/2' onClick={() => router.push('/')}>
+            <Button radius="none" color="primary" className="text-white" type="button" className='w-1/2' onClick={() => router.push('/')}>
               TOPに戻る
             </Button>
-            <Button radius="none" variant='shadow' type="button" className='w-1/2'
+            <Button radius="none" color="primary" className="text-white" type="button" className='w-1/2'
               onClick={() => {
                 setMaxChatLength(maxChatLength + 3)
                 setFinished(false)
