@@ -88,6 +88,8 @@ export default function ChatClientComponent() {
         counselingEndFlag: false,
       },
     ]);
+
+    setInputText('');
     await fetch('/api/openai/chat', {
       method: 'POST',
       body: JSON.stringify(request),
@@ -124,8 +126,6 @@ export default function ChatClientComponent() {
     ) {
       setFinished(true);
     }
-
-    setInputText('');
   };
 
   return (
